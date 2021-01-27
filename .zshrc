@@ -172,6 +172,7 @@ alias cat=bat
 alias find =fd
 alias grep=rg -i
 
-
 source /etc/zsh_command_not_found
 
+#https://github.com/arzzen/calc.plugin.zsh/blob/master/calc.plugin.zsh
+source ~/.oh-my-zsh/custom/plugins/calc.plugin.zsh/calc.plugin.zsh
