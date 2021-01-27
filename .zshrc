@@ -170,4 +170,8 @@ zstyle :bracketed-paste-magic paste-finish pastefinish
 alias v=vim
 alias cat=bat
 alias find =fd
-alias grep=rg
+alias grep=rg -i
+
+
+source /etc/zsh_command_not_found
+
