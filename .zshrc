@@ -82,8 +82,8 @@ zsh-autosuggestions
 git-open
 z
 colored-man-pages
+sudo
 )
-
 
 source $ZSH/oh-my-zsh.sh
 
@@ -170,9 +170,11 @@ zstyle :bracketed-paste-magic paste-finish pastefinish
 alias v=vim
 alias cat=bat
 alias find =fd
-alias grep=rg -i
+alias grep='rg -i'
+alias ls='exa --long'
+alias j=z
 
 source /etc/zsh_command_not_found
 
 #https://github.com/arzzen/calc.plugin.zsh/blob/master/calc.plugin.zsh
-source ~/.oh-my-zsh/custom/plugins/calc.plugin.zsh/calc.plugin.zsh
+#source ~/.oh-my-zsh/custom/plugins/calc.plugin.zsh/calc.plugin.zsh
