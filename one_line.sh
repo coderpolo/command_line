@@ -28,10 +28,19 @@ git remote -v | awk '{print $2}' | sed -n 1p | cb
 git checkout $(gb | fzf)
 
 #统计git提交代码行数
-git log --format='%aN' | sort -u | while read name; do echo -en "$name\t"; git log --author="$name" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }' -; done
+git log --format='%aN' | sort -u | while read name; do
+  echo -en "$name\t"
+  git log --author="$name" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }' -
+done
 
 #用sql直接查询文本文件。http://harelba.github.io/q/
 q -d $',' "select c1,max(c3) from ./txt_file group by c1"
 
 #后台运行脚本。使用source不需要可执行权限。
 source scricpt.sh >scricpt.log 2>&1 &
+
+#从一堆host中取出ip
+cat host_record | xargs dig | grep "A" | grep -e "([0-9]{1,3}[\.]){3}[0-9]{1,3}" | awk '{print $5}' | sort
+
+#从一堆ip中取出host
+cat ip_record | nslookup | grep "name = " | column -t
