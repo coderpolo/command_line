@@ -40,7 +40,7 @@ q -d $',' "select c1,max(c3) from ./txt_file group by c1"
 source scricpt.sh >scricpt.log 2>&1 &
 
 #从一堆host中取出ip
-cat host_record | xargs dig | grep "A" | grep -e "([0-9]{1,3}[\.]){3}[0-9]{1,3}" | awk '{print $5}' | sort
+cat host_record | xargs dig | grep "A" | rg -e "([0-9]{1,3}[\.]){3}[0-9]{1,3}" | awk '{print $5}' | sort
 
 #从一堆ip中取出host
 cat ip_record | nslookup | grep "name = " | column -t
