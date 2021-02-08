@@ -44,3 +44,6 @@ cat host_record | xargs dig | grep "A" | rg -e "([0-9]{1,3}[\.]){3}[0-9]{1,3}" |
 
 #从一堆ip中取出host
 cat ip_record | nslookup | grep "name = " | column -t
+
+# | xargs占位符妙用 -- 以前都是在列模式下批量编辑命令...
+cat keys | xargs -I {} redis-cli get {}
