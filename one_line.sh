@@ -21,6 +21,9 @@ git log -1 | awk '{print $2}' | head -n1 | cb
 #从剪贴板读取上一个commit，并cherry-pick。嘿嘿
 cb | xargs git cherry-pick
 
+#从剪贴板grep。惊人好用。
+cb | grep "abc"
+
 #复制git repo地址到剪贴板
 git remote -v | awk '{print $2}' | sed -n 1p | cb
 
