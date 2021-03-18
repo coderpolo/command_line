@@ -42,6 +42,9 @@ done
 #用sql直接查询文本文件。http://harelba.github.io/q/
 q -d $',' "select c1,max(c3) from ./txt_file group by c1"
 
+# 使用 q 去查询两个文件 -- 超级使用
+q "select tableA.c1 ,tableB.c2 from fileA tableA join fileB tableB on (tableA.c1 = tableB.c1)"
+
 #后台运行脚本。使用source不需要可执行权限。
 source scricpt.sh >scricpt.log 2>&1 &
 
