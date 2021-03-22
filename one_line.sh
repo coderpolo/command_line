@@ -21,6 +21,9 @@ cb | xargs git cherry-pick
 #从剪贴板grep。惊人好用。
 cb | grep "abc"
 
+#复制外网IP地址到剪贴板
+curl ifconfig.me | cb
+
 #复制最后一个commit到剪贴板
 git log -1 | awk '{print $2}' | head -n1 | cb
 
