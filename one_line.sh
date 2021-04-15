@@ -48,6 +48,10 @@ q -d $',' "select c1,max(c3) from ./txt_file group by c1"
 # 使用 q 去查询两个文件 -- 超级实用
 q "select tableA.c1 ,tableB.c2 from fileA tableA join fileB tableB on (tableA.c1 = tableB.c1)"
 
+#使用 q 查询文本文件，并在每行拼接上引号和逗号,粘贴到剪贴板
+q -d $',' "select *  from  fileA where c2 in (select c2 from fileA  group by c2 having count(c2)>2 ) and c5 like '%xyz%'
+order by c5" | awk -F "," '{print $3}' | xargs printf '"%s",\n' | cb | tee
+
 #后台运行脚本。使用source不需要可执行权限。
 source scricpt.sh >scricpt.log 2>&1 &
 
