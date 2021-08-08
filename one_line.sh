@@ -15,6 +15,15 @@ ps -aef | grep "wps" | awk '{print $2}' | xargs kill -9
 #复制ip地址到剪贴板 -- 具体取决于有多少张网卡和前缀
 ifconfig | grep "inet" | grep 10 | grep -v "inet6" | awk '{print $2}' | cb
 
+#复制最后一个commit到剪贴板 -- 提到的cb是本项目中名为cb的脚本。
+git log -1 | awk '{print $2}' | head -n1 | cb
+
+#复制git repo地址到剪贴板
+git remote -v | awk '{print $2}' | sed -n 1p | cb
+
+#复制当前git分支到剪贴板
+git branch --show-current | cb
+
 #从剪贴板读取上一个commit，并cherry-pick。嘿嘿
 cb | xargs git cherry-pick
 
@@ -23,12 +32,6 @@ cb | grep "abc"
 
 #复制外网IP地址到剪贴板
 curl ifconfig.me | cb
-
-#复制最后一个commit到剪贴板
-git log -1 | awk '{print $2}' | head -n1 | cb
-
-#复制git repo地址到剪贴板
-git remote -v | awk '{print $2}' | sed -n 1p | cb
 
 #利用fzf的模糊搜索，交互式切换分支
 git checkout $(gb | fzf)
@@ -63,3 +66,9 @@ cat ip_record | nslookup | grep "name = " | column -t
 
 # | xargs占位符妙用 -- 以前都是在列模式下批量编辑命令...
 cat keys | xargs -I {} redis-cli get {}
+
+#从文件中删除指定字符，如括号  --总的来说，tr比sed简单一些。我主要用来替换大日志中的字符。一般代码中的变量替换，使用IDEA就可以了。
+cat fileName | tr -d "()"
+
+#将文件中的指定字符做替换 ,如 '\t' 替换成 ','
+cat fileName | tr "\t" ","
