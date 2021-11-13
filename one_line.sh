@@ -72,3 +72,6 @@ cat fileName | tr -d "()"
 
 #将文件中的指定字符做替换 ,如 '\t' 替换成 ','
 cat fileName | tr "\t" ","
+
+#批量转换图片格式从jpeg到jpg（使用imagemagick）
+find . -name  "*.jpeg" | xargs -n 1 bash -c 'convert "$0" "${0%.jpeg}.jpg"'
