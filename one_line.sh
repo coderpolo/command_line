@@ -75,3 +75,6 @@ cat fileName | tr "\t" ","
 
 #批量转换图片格式从jpeg到jpg（使用imagemagick）
 find . -name  "*.jpeg" | xargs -n 1 bash -c 'convert "$0" "${0%.jpeg}.jpg"'
+
+#find在当前目录下搜索（排除子文件夹）
+find . -path ./misc -prune -o -name '*.txt' -print
