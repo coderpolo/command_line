@@ -78,3 +78,6 @@ find . -name  "*.jpeg" | xargs -n 1 bash -c 'convert "$0" "${0%.jpeg}.jpg"'
 
 #find在当前目录下搜索（排除子文件夹）
 find . -path ./misc -prune -o -name '*.txt' -print
+
+#查看文件夹占用空间 -- 服务器上一般没有ncdu
+du -lh --max-depth=1
