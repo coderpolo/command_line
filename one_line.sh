@@ -81,3 +81,6 @@ find . -path ./misc -prune -o -name '*.txt' -print
 
 #查看文件夹占用空间 -- 服务器上一般没有ncdu
 du -lh --max-depth=1
+
+#对access日志先条件过滤，再取出指定参数的value -- 后续可以用 q 来统计分布。
+cat access.log | grep "x=&"  | grep -o "y=\<[0-9][0-9]\>"
