@@ -78,6 +78,7 @@ ZSH_THEME="dogenpunk"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git
 autojump
+zsh-syntax-highlighting
 zsh-autosuggestions
 git-open
 z
