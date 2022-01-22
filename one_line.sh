@@ -84,3 +84,6 @@ du -lh --max-depth=1
 
 #对access日志先条件过滤，再取出指定参数的value -- 后续可以用 q 来统计分布。
 cat access.log | grep "x=&"  | grep -o "y=\<[0-9][0-9]\>"
+
+#后台运行进程，将stdout和stderr重定向到文件
+zsh sth.sh  >out.file 2>&1 &
