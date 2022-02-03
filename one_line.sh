@@ -87,3 +87,6 @@ cat access.log | grep "x=&"  | grep -o "y=\<[0-9][0-9]\>"
 
 #后台运行进程，将stdout和stderr重定向到文件
 zsh sth.sh  >out.file 2>&1 &
+
+# 批量在远程主机上执行命令
+cat hosts | xargs -I hostname  ssh  -o StrictHostKeyChecking=no   hostname 'ls /'
