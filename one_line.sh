@@ -65,7 +65,7 @@ cat host_record | xargs dig | grep "A" | rg -e "([0-9]{1,3}[\.]){3}[0-9]{1,3}" |
 cat ip_record | nslookup | grep "name = " | column -t
 
 # | xargs占位符妙用 -- 以前都是在列模式下批量编辑命令...
-cat keys | xargs -I {} redis-cli get {}
+cat keys | xargs -I key redis-cli get key
 
 #从文件中删除指定字符，如括号  --总的来说，tr比sed简单一些。我主要用来替换大日志中的字符。一般代码中的变量替换，使用IDEA就可以了。
 cat fileName | tr -d "()"
@@ -87,6 +87,10 @@ cat access.log | grep "x=&"  | grep -o "y=\<[0-9][0-9]\>"
 
 #后台运行进程，将stdout和stderr重定向到文件
 zsh sth.sh  >out.file 2>&1 &
+
+# 在本机使用xargs 对每个key批量执行多条命令（下面将echo执行了两次）
+cat keys | xargs -I key sh -c 'echo key && echo key'
+cat keys | xargs -I key sh -c 'echo key ; echo key'
 
 # 批量在远程主机上执行多条命令 （第一条命令 ifconfig 第二条命令 hostname）
 cat hosts | xargs -I machine  ssh -T -o StrictHostKeyChecking=no   machine  "/usr/sbin/ifconfig && hostname"
