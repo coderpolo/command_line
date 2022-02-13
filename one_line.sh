@@ -94,3 +94,6 @@ cat keys | xargs -I key sh -c 'echo key ; echo key'
 
 # 批量在远程主机上执行多条命令 （第一条命令 ifconfig 第二条命令 hostname）
 cat hosts | xargs -I machine  ssh -T -o StrictHostKeyChecking=no   machine  "/usr/sbin/ifconfig && hostname"
+
+# 删除带空格的文件名 -- 哈哈 -I选项会对参数中的空格做转义 --刚需！
+find . -name "* *" | xargs  -I name rm -rf name
