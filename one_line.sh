@@ -97,3 +97,7 @@ cat hosts | xargs -I machine  ssh -T -o StrictHostKeyChecking=no   machine  "/us
 
 # 删除带空格的文件名 -- 哈哈 -I选项会对参数中的空格做转义 --刚需！
 find . -name "* *" | xargs  -I name rm -rf name
+
+# python 启动一个http服务器
+python -m SimpleHTTPServer 8080
+python3 -m http.server 8080
