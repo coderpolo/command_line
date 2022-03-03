@@ -101,3 +101,6 @@ find . -name "* *" | xargs  -I name rm -rf name
 # python 启动一个http服务器
 python -m SimpleHTTPServer 8080
 python3 -m http.server 8080
+
+#搜索指定后缀文件名，并按大小排序输出
+find . -name "*.conf" -size +1k | xargs -0 du -h | sort -nr
