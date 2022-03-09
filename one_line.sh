@@ -105,5 +105,5 @@ python3 -m http.server 8080
 #搜索指定后缀文件名，并按大小排序输出
 find . -name "*.conf" -size +1k | xargs -0 du -h | sort -nr
 
-#搜索指定大小的文件 如查找大于100M且小于500M的文件
+#搜索指定大小的文件 如查找大于100M且小于500M的文件 --建议使用find前先用tldr看下
 find ./ -size -500M -size +100M
