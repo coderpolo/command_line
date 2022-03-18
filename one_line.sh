@@ -110,3 +110,7 @@ find ./ -size -500M -size +100M
 
 #查看进程的启动时间
 ps -eo pid,lstart,etime,cmd | grep nginx
+
+#开机启动项管理
+systemctl list-unit-files --type=service|grep enabled
+sudo systemctl disable apache2.service
