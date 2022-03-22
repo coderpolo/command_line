@@ -114,3 +114,11 @@ ps -eo pid,lstart,etime,cmd | grep nginx
 #开机启动项管理
 systemctl list-unit-files --type=service|grep enabled
 sudo systemctl disable apache2.service
+
+#ls按时间排序
+ls -lrt
+ls -lr
+
+#ls按大小排序
+ls lSh
+ls -lShr
