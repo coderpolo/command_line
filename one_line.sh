@@ -109,7 +109,7 @@ find . -name "*.conf" -size +1k | xargs -0 du -h | sort -nr
 find ./ -size -500M -size +100M
 
 #查看进程的启动时间
-ps -eo pid,lstart,etime,cmd | grep nginx
+ps -eo pid,lstart,etime,cmd | grep nginx | grep -v "grep"
 
 #开机启动项管理
 systemctl list-unit-files --type=service|grep enabled
