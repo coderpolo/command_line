@@ -74,7 +74,7 @@ cat fileName | tr -d "()"
 cat fileName | tr "\t" ","
 
 #批量转换图片格式从jpeg到jpg（使用imagemagick）
-find . -name  "*.jpeg" | xargs -n 1 bash -c 'convert "$0" "${0%.jpeg}.jpg"'
+find . -name "*.jpeg" | xargs -n 1 bash -c 'convert "$0" "${0%.jpeg}.jpg"'
 
 #find在当前目录下搜索（排除子文件夹）
 find . -path ./misc -prune -o -name '*.txt' -print
@@ -83,20 +83,20 @@ find . -path ./misc -prune -o -name '*.txt' -print
 du -lh --max-depth=1
 
 #对access日志先条件过滤，再取出指定参数的value -- 后续可以用 q 来统计分布。
-cat access.log | grep "x=&"  | grep -o "y=\<[0-9][0-9]\>"
+cat access.log | grep "x=&" | grep -o "y=\<[0-9][0-9]\>"
 
 #后台运行进程，将stdout和stderr重定向到文件
-zsh sth.sh  >out.file 2>&1 &
+zsh sth.sh >out.file 2>&1 &
 
 # 在本机使用xargs 对每个key批量执行多条命令（下面将echo执行了两次）
 cat keys | xargs -I key sh -c 'echo key && echo key'
 cat keys | xargs -I key sh -c 'echo key ; echo key'
 
 # 批量在远程主机上执行多条命令 （第一条命令 ifconfig 第二条命令 hostname）
-cat hosts | xargs -I machine  ssh -T -o StrictHostKeyChecking=no   machine  "/usr/sbin/ifconfig && hostname"
+cat hosts | xargs -I machine ssh -T -o StrictHostKeyChecking=no machine "/usr/sbin/ifconfig && hostname"
 
 # 删除带空格的文件名 -- 哈哈 -I选项会对参数中的空格做转义 --刚需！
-find . -name "* *" | xargs  -I name rm -rf name
+find . -name "* *" | xargs -I name rm -rf name
 
 # python 启动一个http服务器
 python -m SimpleHTTPServer 8080
@@ -112,7 +112,7 @@ find ./ -size -500M -size +100M
 ps -eo pid,lstart,etime,cmd | grep nginx | grep -v "grep"
 
 #开机启动项管理
-systemctl list-unit-files --type=service|grep enabled
+systemctl list-unit-files --type=service | grep enabled
 sudo systemctl disable apache2.service
 
 #ls按时间排序
@@ -125,3 +125,6 @@ ls -lShr
 
 #时间戳转日期。登服务器的时候用的比较多，不用再粘贴到网页了
 date -d@1648387801
+
+#打印指定行
+sed -n '3,3p'
