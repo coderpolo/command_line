@@ -128,18 +128,17 @@ date -d@1648387801
 
 #打印指定行
 sed -n '1p'
-
+#打印不连续行
+sed -n '1p;3p'
 #打印连续行
 sed -n '1,3p'
 
-#删除指定行
-sed '1d' fileName > newFileName
+#原地删除指定行
 sed -i '1d' fileName
-
-#删除不连续行
-sed '1d;3d' fileName > newFileName
+#原地删除不连续行
 sed -i '1d;3d' fileName
-
 #删除连续行
-sed  '1d,3d' fileName > newFileName
-sed -i '1d,3d' fileName
+sed  -i '1d,3d' fileName
+
+#对于比较重要的文件 删除最好用重定向，以原地删除为例
+sed  '1d' fileName >tmpfile && mv tmpfile fileName
