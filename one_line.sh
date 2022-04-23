@@ -127,4 +127,19 @@ ls -lShr
 date -d@1648387801
 
 #打印指定行
-sed -n '3,3p'
+sed -n '1p'
+
+#打印连续行
+sed -n '1,3p'
+
+#删除指定行
+sed '1d' fileName >> newFileName
+sed -i '1d' fileName
+
+#删除不连续行
+sed '1d;3d' fileName >> newFileName
+sed -i '1d;3d' fileName
+
+#删除连续行
+sed  '1d,3d' fileName >> newFileName
+sed -i '1d,3d' fileName
