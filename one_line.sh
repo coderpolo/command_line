@@ -108,6 +108,12 @@ find . -name "*.conf" -size +1k | xargs -0 du -h | sort -nr
 #搜索指定大小的文件 如查找大于100M且小于500M的文件 --建议使用find前先用tldr看下
 find ./ -size -500M -size +100M
 
+#搜索10天前更改过的文件夹
+find .  -type d -mtime +10
+
+#搜索10天前更改过的文件
+find .  -type f -mtime +10
+
 #查看进程的启动时间
 ps -eo pid,lstart,etime,cmd | grep nginx | grep -v "grep"
 
