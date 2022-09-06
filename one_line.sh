@@ -140,3 +140,6 @@ date +%s
 
 #批量清空各个机器的定时任务
 cat hostFile |  xargs -I machine ssh -T -o StrictHostKeyChecking=no machine "hostname && crontab -r "
+
+# awk指定多个分隔符 (,#)
+cat fileName | awk -F "[,#]"
