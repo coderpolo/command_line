@@ -18,5 +18,8 @@ sed '1d' fileName >tmpfile && mv tmpfile fileName
 # sed从匹配行删除到最后一行
 sed -i '/^abc/,$d' fileName
 
+#sed删除匹配的行
+sed -i '/abc/d' filename
+
 #sed替换指定行内的字符 -- 可结合xargs
 sed -i '262,265s/x/y/' filename

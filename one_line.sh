@@ -143,3 +143,6 @@ cat hostFile |  xargs -I machine ssh -T -o StrictHostKeyChecking=no machine "hos
 
 # awk指定多个分隔符 ,#
 cat fileName | awk -F "[,#]" '{print $1,$2}'
+
+#flock控制crontab脚本单例执行
+* * * * * root (flock -xn /tmp/bsline.lock -c 'ls /tmp')
