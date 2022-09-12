@@ -24,5 +24,9 @@ sed -i '/abc/d' filename
 #sed替换指定行内的字符 -- 可结合xargs
 sed -i '262,265s/x/y/' filename
 
+#sed使用竖线分隔符替换行内字符
+sed -i '262,255s|x|y' filename
+
 #sed替换匹配行的全部内容
 sed  "/old content/c\new content/" filename
+sed "s/old content/new content/" filename
