@@ -146,3 +146,9 @@ cat fileName | awk -F "[,#]" '{print $1,$2}'
 
 #flock控制crontab脚本单例执行
 * * * * * root (flock -xn /tmp/bsline.lock -c 'ls /tmp')
+
+#grep匹配三位数字
+grep '\<[0-9][0-9][0-9]\>' a.txt
+
+#grep匹配100-199数字
+grep '\<1[0-9][0-9]\>' a.txt
