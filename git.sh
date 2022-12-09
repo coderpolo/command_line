@@ -24,3 +24,6 @@ git branch --show-current | cb
 
 #从剪贴板读取上一个commit，并cherry-pick。嘿嘿
 cb | xargs git cherry-pick
+
+#分支重命名
+git branch -m oldName newName && git push --delete origin oldName && git push origin newName && git branch --set-upstream-to origin/newName
