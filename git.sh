@@ -27,3 +27,9 @@ cb | xargs git cherry-pick
 
 #分支重命名
 git branch -m oldName newName && git push --delete origin oldName && git push origin newName && git branch --set-upstream-to origin/newName
+
+#git tag相关（添加、上传、删除本地、删除远端）
+git tag -a 1.1.0 -m "message"
+git push origin 1.1.0
+git tag -d 1.1.0
+git push origin :refs/tags/1.1.0
