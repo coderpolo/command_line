@@ -33,3 +33,6 @@ git tag -a 1.1.0 -m "message"
 git push origin 1.1.0
 git tag -d 1.1.0
 git push origin :refs/tags/1.1.0
+
+#远端tag覆盖本地
+git tag -d 1.1.0 && git fetch  --tags
