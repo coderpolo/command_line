@@ -49,12 +49,6 @@ cat fileName | tr -d "()"
 #将文件中的指定字符做替换 ,如 '\t' 替换成 ','
 cat fileName | tr "\t" ","
 
-#批量转换图片格式从jpeg到jpg（使用imagemagick）
-find . -name "*.jpeg" | xargs -n 1 bash -c 'convert "$0" "${0%.jpeg}.jpg"'
-
-#find在当前目录下搜索（排除子文件夹）
-find . -path ./misc -prune -o -name '*.txt' -print
-
 #查看文件夹占用空间 -- 服务器上一般没有ncdu
 du -lh --max-depth=1
 
@@ -71,24 +65,10 @@ cat keys | xargs -I key sh -c 'echo key ; echo key'
 # 批量在远程主机上执行多条命令 （第一条命令 ifconfig 第二条命令 hostname）
 cat hosts | xargs -I machine ssh -T -o StrictHostKeyChecking=no machine "/usr/sbin/ifconfig && hostname"
 
-# 删除带空格的文件名 -- 哈哈 -I选项会对参数中的空格做转义 --刚需！
-find . -name "* *" | xargs -I name rm -rf name
 
 # python 启动一个http服务器
 python -m SimpleHTTPServer 8080
 python3 -m http.server 8080
-
-#搜索指定后缀文件名，并按大小排序输出
-find . -name "*.conf" -size +1k | xargs -0 du -h | sort -nr
-
-#搜索指定大小的文件 如查找大于100M且小于500M的文件 --建议使用find前先用tldr看下
-find ./ -size -500M -size +100M
-
-#搜索10天前更改过的文件夹
-find .  -type d -mtime +10
-
-#搜索10天前更改过的文件
-find .  -type f -mtime +10
 
 #查看进程的启动时间
 ps -eo pid,lstart,etime,cmd | grep nginx | grep -v "grep"
