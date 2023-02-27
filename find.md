@@ -5,7 +5,8 @@ find . -path ./misc -prune -o -name '*.txt' -print
 
 # 删除带空格的文件名 -- 哈哈 -I选项会对参数中的空格做转义 --刚需！
 find . -name "* *" | xargs -I name rm -rf name
-#搜索指定后缀文件名，并按大小排序输出
+
+# 搜索指定后缀文件名，并按大小排序输出
 find . -name "*.conf" -size +1k | xargs -0 du -h | sort -nr
 
 # 搜索指定大小的文件 如查找大于100M且小于500M的文件 --建议使用find前先用tldr看下
