@@ -2,4 +2,4 @@
 grep -E 'conditionA|conditionB'  -irn ./ 
 
 # grep排除多个文件
-grep -E 'conditionA|conditionB'  -irn ./ --exclude='y' --exclude='prefix*' --exclude='*postfix' 
+grep -E 'conditionA|conditionB'  -irn ./ --exclude='y' --exclude='fileNamePrefix*' --exclude='*FilenamePostfix' --exclude-dir='subDir' 
