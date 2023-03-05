@@ -52,9 +52,6 @@ cat fileName | tr "\t" ","
 #查看文件夹占用空间 -- 服务器上一般没有ncdu
 du -lh --max-depth=1
 
-#对access日志先条件过滤，再取出指定参数的value -- 后续可以用 q 来统计分布。
-cat access.log | grep "x=&" | grep -o "y=\<[0-9][0-9]\>"
-
 #后台运行进程，将stdout和stderr重定向到文件
 zsh sth.sh >out.file 2>&1 &
 
@@ -64,7 +61,6 @@ cat keys | xargs -I key sh -c 'echo key ; echo key'
 
 # 批量在远程主机上执行多条命令 （第一条命令 ifconfig 第二条命令 hostname）
 cat hosts | xargs -I machine ssh -T -o StrictHostKeyChecking=no machine "/usr/sbin/ifconfig && hostname"
-
 
 # python 启动一个http服务器
 python -m SimpleHTTPServer 8080
@@ -91,23 +87,8 @@ date -d@1648387801
 #获取当前时间戳
 date +%s
 
-#使用命令添加定时任务-可将这条命令以脚本的方式拷贝到各个主机。然后用xargs触发各个主机使用此脚本
-(echo "*/1 0-10 * * * (rm -rf /tmp)"; crontab -l)|crontab
-
-#批量清空各个机器的定时任务
-cat hostFile |  xargs -I machine ssh -T -o StrictHostKeyChecking=no machine "hostname && crontab -r "
-
 #只打印有问题的机器(本质是利用grep的返回值。如果他grep匹配到了错误信息，grep进程返回1.后面hostname命令才能执行)
- cat hostFile| xargs -P64 -I machine ssh -T -o StrictHostKeyChecking=no machine "ls -la /data/latest | grep "oldtime" && hostname"   | grep "hostPostfix"
+cat hostFile | xargs -P64 -I machine ssh -T -o StrictHostKeyChecking=no machine "ls -la /data/latest | grep "oldtime" && hostname" | grep "hostPostfix"
 
 # awk指定多个分隔符 ,#
 cat fileName | awk -F "[,#]" '{print $1,$2}'
-
-#flock控制crontab脚本单例执行
-* * * * * root (flock -xn /tmp/bsline.lock -c 'ls /tmp')
-
-#grep匹配三位数字
-grep '\<[0-9][0-9][0-9]\>' a.txt
-
-#grep匹配100-199数字
-grep '\<1[0-9][0-9]\>' a.txt
