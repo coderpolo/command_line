@@ -95,3 +95,6 @@ cat hostFile | xargs -P64 -I machine ssh -T -o StrictHostKeyChecking=no machine 
 
 # awk指定多个分隔符 ,#
 cat fileName | awk -F "[,#]" '{print $1,$2}'
+
+# 更改文件的属主
+chown userName:groupName (file|dir)Name
