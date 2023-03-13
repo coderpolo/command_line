@@ -132,6 +132,11 @@ export GOOS=linux
 export GOTOOLS=$GOROOT/pkg/tool
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
+#zsh history条数设置
+export HISTSIZE=1000000000
+export SAVEHIST=$HISTSIZE
+setopt EXTENDED_HISTORY
+
 # jdk
 export JAVA_HOME=/home/w/jdk11
 #export JAVA_HOME=/home/w/jdk8
