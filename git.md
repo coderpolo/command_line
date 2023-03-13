@@ -28,11 +28,16 @@ cb | xargs git cherry-pick
 # 分支重命名
 git branch -m oldName newName && git push --delete origin oldName && git push origin newName && git branch --set-upstream-to origin/newName
 
-# git tag相关（添加、上传、删除本地、删除远端）
+# git tag相关（添加、上传、删除本地、删除远端、远端tag覆盖本地）
 git tag -a 1.1.0 -m "message"
 git push origin 1.1.0
 git tag -d 1.1.0
 git push origin :refs/tags/1.1.0
-
-# 远端tag覆盖本地
 git tag -d 1.1.0 && git fetch  --tags
+
+# git stash相关 (当前改动放入暂存,取出最近暂存,查看暂存list,查看暂存list中指定改动,取出暂存list中指定改动)
+git stash 
+git stash apply
+git stash list
+git stash show -p stash@{2}
+git stash apply stash@{2}
