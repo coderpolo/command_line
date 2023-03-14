@@ -98,3 +98,6 @@ cat fileName | awk -F "[,#]" '{print $1,$2}'
 
 # 更改文件的属主
 chown userName:groupName (file|dir)Name
+
+# 强制清理系统缓存（需要root权限）
+sync; echo 1 > /proc/sys/vm/drop_caches&&sync; echo 3 > /proc/sys/vm/drop_caches&&sync; echo 2 > /proc/sys/vm/drop_caches
