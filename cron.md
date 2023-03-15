@@ -9,3 +9,8 @@ cat hostFile |  xargs -I machine ssh -T -o StrictHostKeyChecking=no machine "hos
 
 # flock控制crontab脚本单例执行
 * * * * * root (flock -xn /tmp/bsline.lock -c 'ls /tmp')
+
+# 查看cron日志
+tail -n 100 /var/log/cron
+
+
