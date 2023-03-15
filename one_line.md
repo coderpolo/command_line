@@ -101,3 +101,6 @@ chown userName:groupName (file|dir)Name
 
 # 强制清理系统缓存（需要root权限）
 sync; echo 1 > /proc/sys/vm/drop_caches&&sync; echo 3 > /proc/sys/vm/drop_caches&&sync; echo 2 > /proc/sys/vm/drop_caches
+
+# 打印一批文件的第一列，避免xargs 下面cat导致不换行的问题
+find . -name "*filename_pattern*" | xargs awk '{print $1}'
