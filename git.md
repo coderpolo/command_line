@@ -25,6 +25,9 @@ git branch --show-current | cb
 # 从剪贴板读取上一个commit，并cherry-pick。嘿嘿
 cb | xargs git cherry-pick
 
+# 使用远端分支覆盖本地改动
+git fetch --all && git reset --hard origin/`git branch --show-current`
+
 # 分支重命名
 git branch -m oldName newName && git push --delete origin oldName && git push origin newName && git branch --set-upstream-to origin/newName
 
