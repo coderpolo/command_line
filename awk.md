@@ -9,3 +9,6 @@ cat data|awk 'BEGIN {max = 0} {if ($1>max) max=$1 fi} END {print "Max=", max}'
 
 # 最小值
 awk 'BEGIN {min = 2147483648} {if ($1<min) min=$1 fi} END {print "Min=", min}'
+
+# 去重（性能较快）
+awk '!x[$0]++' 
