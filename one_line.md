@@ -104,3 +104,8 @@ sync; echo 1 > /proc/sys/vm/drop_caches&&sync; echo 3 > /proc/sys/vm/drop_caches
 
 # 打印一批文件的第一列，避免xargs 下面cat导致不换行的问题
 find . -name "*filename_pattern*" | xargs awk '{print $1}'
+
+# bash打印行号(适用于列模式生成的脚本，一次性扫描几百项，在输出结果中插入行号好分辨)
+#!/bin/bash
+echo $LINENO && sh "command xx"
+echo $LINENO && sh "command xx"
