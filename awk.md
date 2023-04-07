@@ -12,3 +12,6 @@ awk 'BEGIN {min = 2147483648} {if ($1<min) min=$1 fi} END {print "Min=", min}'
 
 # 去重（性能较快）
 awk '!x[$0]++' 
+
+# awk打印倒数第二列，倒数第一列
+awk '{print $(NF-1), $NF}' filename.txt
