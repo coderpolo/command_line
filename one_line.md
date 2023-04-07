@@ -109,3 +109,6 @@ find . -name "*filename_pattern*" | xargs awk '{print $1}'
 #!/bin/bash
 echo $LINENO && sh "command xx"
 echo $LINENO && sh "command xx"
+
+# 打印文件倒数第二行
+tail -n 2 filename | head -n 1
