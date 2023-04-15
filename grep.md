@@ -1,5 +1,7 @@
 # grep从多个条件搜索
 grep -E 'conditionA|conditionB'  -irn ./ 
+# grep从日志匹配一个key的多value
+grep -E 'key=(conditionA|conditionB)'  -irn ./
 
 # grep排除多个文件
 grep -E 'conditionA|conditionB'  -irn ./ --exclude='y' --exclude='fileNamePrefix*' --exclude='*FilenamePostfix' --exclude-dir='subDir' 
