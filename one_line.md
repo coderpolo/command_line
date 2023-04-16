@@ -15,14 +15,8 @@ sudo docker ps | awk '{print $1}' | xargs sudo docker stop
 # 根据进程名kill
 ps -aef | grep "wps" | awk '{print $2}' | xargs kill -9
 
-# 复制ip地址到剪贴板 -- 具体取决于有多少张网卡和前缀
-ifconfig | grep "inet" | grep 10 | grep -v "inet6" | awk '{print $2}' | cb
-
 # 从剪贴板grep。惊人好用。
 cb | grep "abc"
-
-# 复制外网IP地址到剪贴板
-curl ifconfig.me | cb
 
 # 用sql直接查询文本文件。http://harelba.github.io/q/
 q -d $',' "select c1,max(c3) from ./txt_file group by c1"
@@ -37,10 +31,7 @@ order by c5" | awk -F "," '{print $3}' | xargs printf '"%s",\n' | cb | tee
 # 后台运行脚本。使用source不需要可执行权限。
 source scricpt.sh >scricpt.log 2>&1 &
 
-# 从一堆host中取出ip
-cat host_record | xargs dig | grep "A" | rg -e "([0-9]{1,3}[\.]){3}[0-9]{1,3}" | awk '{print $5}' | sort
-
-# 从一堆ip中取出host
+# 从一堆ip中取出host -- 应该不太需要，其实ssh登录即可
 cat ip_record | nslookup | grep "name = " | column -t
 
 # xargs占位符妙用 -- 以前都是在列模式下批量编辑命令...
