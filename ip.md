@@ -12,3 +12,6 @@ curl cip.cc/172.67.161.169
 
 # grep提取ip地址
 grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" filename
+
+# ip批量查询
+https://ip.tool.chinaz.com/ipbatch
