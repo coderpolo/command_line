@@ -15,3 +15,6 @@ awk '!x[$0]++'
 
 # awk打印倒数第二列，倒数第一列
 awk '{print $(NF-1), $NF}' filename.txt
+
+# awk根据^A切割
+awk -F "\x01" '{print $1}' filename
