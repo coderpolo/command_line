@@ -18,3 +18,12 @@ awk '{print $(NF-1), $NF}' filename.txt
 
 # awk根据^A切割
 awk -F "\x01" '{print $1}' filename
+
+# awk按条件打印
+awk '$3 == 1 {print}' filename
+
+# awk 从某一列中截取substr打印 (从第列的第十二个字符开始截取第一个字符)
+ awk '{if(substr($3, 12, 1) != 1) print}' filename
+ 
+# awk 查询字符串位于哪一列
+awk '{for(i=1;i<=NF;i++)if(index($i,"foo"))print i}' filename
