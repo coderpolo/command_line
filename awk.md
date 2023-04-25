@@ -19,6 +19,13 @@ awk '{print $(NF-1), $NF}' filename.txt
 # awk根据^A切割
 awk -F "\x01" '{print $1}' filename
 
+# awk指定多个分隔符 ,#
+cat fileName | awk -F "[,#]" '{print $1,$2}'
+
+# awk指定一个分割符(单词或字符)
+cat fileName | awk -F "word" '{print $1,$2}'
+cat fileName | awk -F " " '{print $1,$2}'
+
 # awk按条件打印
 awk '$3 == 1 {print}' filename
 

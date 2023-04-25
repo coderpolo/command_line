@@ -84,9 +84,6 @@ date +%s
 # 只打印有问题的机器(本质是利用grep的返回值。如果他grep匹配到了错误信息，grep进程返回1.后面hostname命令才能执行)
 cat hostFile | xargs -P64 -I machine ssh -T -o StrictHostKeyChecking=no machine "ls -la /data/latest | grep "oldtime" && hostname" | grep "hostPostfix"
 
-# awk指定多个分隔符 ,#
-cat fileName | awk -F "[,#]" '{print $1,$2}'
-
 # 更改文件的属主
 chown userName:groupName (file|dir)Name
 
