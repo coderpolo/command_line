@@ -17,3 +17,6 @@ cat access.log | grep "x=&" | grep -o "y=\<[0-9][0-9]\>"
 
 # 过滤空行
 grep "^$" fileName
+
+# 使用xargs多进程grep日志
+find . -name "*filename*" | xargs -P20 grep sth
