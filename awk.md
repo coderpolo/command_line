@@ -34,3 +34,6 @@ awk '$3 == 1 {print}' filename
  
 # awk 查询字符串位于哪一列
 awk '{for(i=1;i<=NF;i++)if(index($i,"foo"))print i}' filename
+
+#从按|分割的日志文件中提取的指定字段
+awk -F'|' '{ split($0, arr, "field="); split(arr[2], fieldArr, "|"); printf "%s\n", fieldArr[1] }' logfile.log
