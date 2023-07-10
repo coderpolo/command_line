@@ -19,4 +19,4 @@ cat access.log | grep "x=&" | grep -o "y=\<[0-9][0-9]\>"
 grep "^$" fileName
 
 # 使用xargs多进程grep日志
-find . -name "*filename*" | xargs -P20 grep sth
+find /path/to/search -type f | xargs -n 4 -P 4 grep "search_pattern"
