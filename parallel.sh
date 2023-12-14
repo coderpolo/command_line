@@ -16,4 +16,4 @@ pslurp -t0 -h hostfile "remot_file_name" local_path
 pssh -t0 -h hostfile -i -p256 -l search -O StrictHostKeyChecking=no "hostname"
 
 # 批量拷贝文件到远程机器
- pscp -h bs_all_host_no_lycc local_file "remote_path"
+pscp -h bs_all_host_no_lycc local_file "remote_path"
