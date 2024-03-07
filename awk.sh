@@ -39,4 +39,4 @@ awk '{for(i=1;i<=NF;i++)if(index($i,"foo"))print i}' filename
 awk -F'|' '{ split($0, arr, "field="); split(arr[2], fieldArr, "|"); printf "%s\n", fieldArr[1] }' logfile.log
 
 # awk一键统计99 95 999 avg
-cat file | sort -n | awk 'BEGIN{count=0}{sum+=$1;values[count++]=$1}END{PROCINFO["sorted_in"]="@asc"; n = asort(values); p999 = values[int(n * 0.999)]; p99 = values[int(n * 0.99)]; p95 = values[int(n * 0.95)]; average = sum / n; print "999th percentile:", p999; print "99th percentile:", p99; print "95th percentile:", p95; print "Average:", average;}'
+cat filename | sort -n | awk 'BEGIN{count=0}{sum+=$1;values[count++]=$1}END{n = count; p99_index = int(n * 0.99); p99 = values[p99_index]; p95_index = int(n * 0.95); p95 = values[p95_index]; average = sum / n; print "99th percentile:", p99; print "95th percentile:", p95; print "Average:", average;}'
