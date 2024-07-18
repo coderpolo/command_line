@@ -100,3 +100,6 @@ echo $LINENO && sh "command xx"
 
 # 打印文件倒数第二行
 tail -n 2 filename | head -n 1
+
+# 命令行计算器
+echo "scale=2;  18000/309300" | bc
