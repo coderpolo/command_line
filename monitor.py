@@ -204,7 +204,7 @@ def main():
     # 找出符合条件的ETF并存储
     switch_etfs = []
     for etf in found_etfs:
-        if file_etf_data['premium_ratio'] - etf['premium_ratio'] > 0.8:
+        if file_etf_data['premium_ratio'] - etf['premium_ratio'] > 0.5:
             switch_etfs.append(etf)
 
     # 按溢价率排序 (从小到大)
