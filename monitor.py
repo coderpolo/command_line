@@ -197,6 +197,10 @@ def main():
     etf_codes_to_find = ['159941', '513100', '513300', '159501', '159659', '159632', '513110', '513870', '159513', '159660', '159696', '513390']
     found_etfs = find_etfs_by_codes(all_etf_data, etf_codes_to_find)
 
+    # 打印所有找到的ETF数据
+    for etf in found_etfs:
+        logging.info(f"ETF代码: {etf['code']}, 名称: {etf['name']}, 溢价率: {etf['premium_ratio']}%") # 使用logging
+
     if not found_etfs:
         logging.info(f"未找到列表 {etf_codes_to_find} 中的任何ETF数据。") # 使用logging
         return
