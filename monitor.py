@@ -216,8 +216,8 @@ def main():
 
     # 根据是否有符合条件的结果, 决定是否发送消息, 并使用 logging 记录
     if switch_etfs:
-        logging.info("\n老板，该换仓啦！ (溢价率差值大于0.8,):") # 使用logging
-        message_lines = ["\n老板，该换仓啦！ (溢价率差值大于0.8,):"]
+        logging.info("\n老板，该换仓啦！ (溢价率差值大,):") # 使用logging
+        message_lines = ["\n老板，该换仓啦！ (溢价率差值大,):"]
 
         for etf in switch_etfs:
             logging.info(f"  从 {file_etf_data['code']} ({file_etf_data['name']}) 换仓到 {etf['code']} ({etf['name']})")  # 使用logging
