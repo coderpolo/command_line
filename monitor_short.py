@@ -207,7 +207,7 @@ def main():
 
     if sell_etfs:
         logging.info("\n老板，该卖出啦！ (溢价率大, 且在已持仓列表中):")
-        sell_message_lines = ["\n老板，该卖出啦！ (溢价率大%, 且在已持仓列表中):"]
+        sell_message_lines = ["\n老板，该卖出啦！ (溢价率大, 且在已持仓列表中):"]
         for etf in sell_etfs:
             logging.info(f"   卖出 {etf['code']} ({etf['name']})")
             logging.info(f"    {etf['code']} 溢价率: {etf['premium_ratio']}%")
