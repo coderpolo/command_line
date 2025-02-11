@@ -7,7 +7,6 @@ import base64
 import urllib.parse
 import logging  # 导入日志模块
 
-
 # 设置日志记录, 包含时间
 log_file_path = "/home/w/work/command_line/etf_monitor.log"  # 日志文件路径
 logging.basicConfig(
@@ -16,6 +15,7 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s',  # 日志格式, 包含时间
     datefmt='%Y-%m-%d %H:%M:%S'  # 日期时间格式
 )
+
 
 def generate_dingtalk_signature(secret):
     """
@@ -28,6 +28,7 @@ def generate_dingtalk_signature(secret):
     hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
     sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
     return timestamp, sign
+
 
 def send_dingtalk_message(webhook, message):
     """
@@ -52,15 +53,16 @@ def send_dingtalk_message(webhook, message):
         response.raise_for_status()  # Raise HTTPError for bad responses (4xx or 5xx)
         result = response.json()
         if result.get('errcode') != 0:
-            logging.error(f"钉钉消息发送失败: {result.get('errmsg')}") # 使用logging记录
+            logging.error(f"钉钉消息发送失败: {result.get('errmsg')}")  # 使用logging记录
             return False
         return True
     except requests.exceptions.RequestException as e:
-        logging.error(f"钉钉消息发送失败: {e}") # 使用logging记录
+        logging.error(f"钉钉消息发送失败: {e}")  # 使用logging记录
         return False
     except Exception as e:
         logging.error(f"钉钉消息发送发生其他错误：{e}")  # 使用logging记录
         return False
+
 
 def get_etf_data(page=1, page_size=100):
     """
@@ -108,6 +110,7 @@ def get_etf_data(page=1, page_size=100):
         logging.error(f"第 {page} 页发生其他错误: {e}")  # 使用logging记录
         return None
 
+
 def get_multiple_pages_etf_data(num_pages=3, page_size=100):
     """
     获取多页ETF数据并合并。
@@ -118,10 +121,11 @@ def get_multiple_pages_etf_data(num_pages=3, page_size=100):
         if etf_data:
             all_etf_data.extend(etf_data)
         else:
-            logging.warning(f"第 {page} 页请求失败，跳过。") # 使用logging记录
+            logging.warning(f"第 {page} 页请求失败，跳过。")  # 使用logging记录
             # break  #如果需要，可以取消注释
 
     return all_etf_data
+
 
 def find_etfs_by_codes(etf_data_list, codes):
     """
@@ -137,6 +141,7 @@ def find_etfs_by_codes(etf_data_list, codes):
                 'premium_ratio': etf_data.get('PREMIUM_DISCOUNT_RATIO', 0) * -1
             })
     return found_etfs
+
 
 def get_etf_data_by_code(etf_data_list, code):
     """
@@ -191,18 +196,22 @@ def main():
         logging.warning(f"未找到代码为 {file_code} 的ETF数据。")  # 使用logging记录
         return
 
-    logging.info(f"从文件中读取的ETF代码: {file_etf_data['code']} ({file_etf_data['name']}), 溢价率: {file_etf_data['premium_ratio']}%") # 使用logging
+    logging.info(
+        f"从文件中读取的ETF代码: {file_etf_data['code']} ({file_etf_data['name']}), 溢价率: {file_etf_data['premium_ratio']}%")  # 使用logging
 
     # 要查找的ETF代码列表
-    etf_codes_to_find = ['159941', '513100', '513300', '159501', '159659', '159632', '513110', '513870', '159513', '159660', '159696', '513390']
+    etf_codes_to_find = ['159941', '513100', '513300', '159501', '159659', '159632', '513110', '513870', '159513',
+                         '159660', '159696', '513390']
     found_etfs = find_etfs_by_codes(all_etf_data, etf_codes_to_find)
 
     # 打印所有找到的ETF数据
+    # 按溢价率从小到大排序
+    found_etfs.sort(key=lambda x: x['premium_ratio'])
     for etf in found_etfs:
-        logging.info(f"ETF代码: {etf['code']}, 名称: {etf['name']}, 溢价率: {etf['premium_ratio']}%") # 使用logging
+        logging.info(f"ETF代码: {etf['code']}, 名称: {etf['name']}, 溢价率: {etf['premium_ratio']}%")  # 使用logging
 
     if not found_etfs:
-        logging.info(f"未找到列表 {etf_codes_to_find} 中的任何ETF数据。") # 使用logging
+        logging.info(f"未找到列表 {etf_codes_to_find} 中的任何ETF数据。")  # 使用logging
         return
 
     # 找出符合条件的ETF并存储
@@ -216,16 +225,18 @@ def main():
 
     # 根据是否有符合条件的结果, 决定是否发送消息, 并使用 logging 记录
     if switch_etfs:
-        logging.info("\n老板，该换仓啦！ (溢价率差值大,):") # 使用logging
+        logging.info("\n老板，该换仓啦！ (溢价率差值大,):")  # 使用logging
         message_lines = ["\n老板，该换仓啦！ (溢价率差值大,):"]
 
         for etf in switch_etfs:
-            logging.info(f"  从 {file_etf_data['code']} ({file_etf_data['name']}) 换仓到 {etf['code']} ({etf['name']})")  # 使用logging
+            logging.info(
+                f"  从 {file_etf_data['code']} ({file_etf_data['name']}) 换仓到 {etf['code']} ({etf['name']})")  # 使用logging
             logging.info(f"    {file_etf_data['code']} 溢价率: {file_etf_data['premium_ratio']}%")  # 使用logging
             logging.info(f"    {etf['code']} 溢价率: {etf['premium_ratio']}%")  # 使用logging
             logging.info("-" * 30)  # 使用logging
 
-            message_lines.append(f"  从 {file_etf_data['code']} ({file_etf_data['name']}) 换仓到 {etf['code']} ({etf['name']})")
+            message_lines.append(
+                f"  从 {file_etf_data['code']} ({file_etf_data['name']}) 换仓到 {etf['code']} ({etf['name']})")
             message_lines.append(f"    {file_etf_data['code']} 溢价率: {file_etf_data['premium_ratio']}%")
             message_lines.append(f"    {etf['code']} 溢价率: {etf['premium_ratio']}%")
             message_lines.append("-" * 30)
@@ -238,4 +249,6 @@ def main():
 
 
 if __name__ == "__main__":
+    logging.info("\n******************************\n")
     main()
+    logging.info("\n")

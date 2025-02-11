@@ -135,8 +135,11 @@ def find_etfs_by_codes(etf_data_list, codes):
                 'name': etf_data.get('SECURITY_NAME_ABBR'),
                 'premium_ratio': etf_data.get('PREMIUM_DISCOUNT_RATIO', 0) * -1
             })
-
+    # 按溢价率从小到大排序
+    found_etfs.sort(key=lambda x: x['premium_ratio'])
+    # 打印所有找到的ETF数据
     for etf in found_etfs:
+        logging.info(f"ETF代码: {etf['code']}, 名称: {etf['name']}, 溢价率: {etf['premium_ratio']}%")
         print(f"ETF代码: {etf['code']}, 名称: {etf['name']}, 溢价率: {etf['premium_ratio']}%")
 
     return found_etfs
@@ -183,7 +186,7 @@ def main():
         return
 
     # 要查找的ETF代码列表
-    etf_codes_to_find = ['513030','159561','159329','520830','513080','513350','159518']
+    etf_codes_to_find = ['513030','159561','159329','520830','513080','513350','159518','159529']
     found_etfs = find_etfs_by_codes(all_etf_data, etf_codes_to_find)
 
 
@@ -225,7 +228,6 @@ def main():
 
     switch_etfs.sort(key=lambda x: x['premium_ratio'])
     logging.info("******************************")
-    logging.info("\n")
 
     if switch_etfs:
         logging.info("\n老板，建仓啦！ (溢价率小于5%, 且不在已持仓列表中):")
@@ -247,4 +249,6 @@ def main():
 
 
 if __name__ == "__main__":
+    logging.info("\n******************************\n")
     main()
+    logging.info("\n")
