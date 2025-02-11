@@ -186,7 +186,7 @@ def main():
         return
 
     # 要查找的ETF代码列表
-    etf_codes_to_find = ['513030','159561','159329','520830','513080','513350','159518','159529']
+    etf_codes_to_find = ['513030','159561','159329','520830','513080','513350','159518','159529','159687']
     found_etfs = find_etfs_by_codes(all_etf_data, etf_codes_to_find)
 
 
