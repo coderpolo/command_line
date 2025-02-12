@@ -139,7 +139,8 @@ def find_etfs_by_codes(etf_data_list, codes):
             found_etfs.append({
                 'code': etf_data.get('SECURITY_CODE'),
                 'name': etf_data.get('SECURITY_NAME_ABBR'),
-                'premium_ratio': etf_data.get('PREMIUM_DISCOUNT_RATIO', 0) * -1
+                'premium_ratio': etf_data.get('PREMIUM_DISCOUNT_RATIO', 0) * -1,
+                'price': etf_data.get('NEW_PRICE'),
             })
     # 按溢价率从小到大排序
     found_etfs.sort(key=lambda x: x['premium_ratio'])
@@ -261,6 +262,17 @@ def main():
     else:
         logging.info("没有找到符合建仓条件的ETF。")
 
+    min_premium_etf = min(found_etfs, key=lambda x: x['premium_ratio'])
+
+
+    # 根据实时价格和溢价算净值，并建议溢价五个点挂单价格
+    if min_premium_etf['premium_ratio'] <= 8  and min_premium_etf['code'] not in held_etf_codes:
+        net_value = float(min_premium_etf.get('price', 0)) / (100 + min_premium_etf['premium_ratio']) * 105
+        # 推送钉钉消息
+        message = f"老板 最小溢价的ETF: {min_premium_etf['code']} ({min_premium_etf['name']})\n溢价率: {min_premium_etf['premium_ratio']}%\n建议挂单价格: {net_value:.3f}"
+        # 推送钉钉消息并打印到日志
+        logging.info(message)
+        send_dingtalk_message(dingtalk_webhook, message)
 
 
 if __name__ == "__main__":
