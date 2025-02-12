@@ -129,6 +129,12 @@ def find_etfs_by_codes(etf_data_list, codes):
     found_etfs = []
     for etf_data in etf_data_list:
         if etf_data.get('SECURITY_CODE') in codes:
+            if etf_data.get('PREMIUM_DISCOUNT_RATIO') == '-':
+                # 打印一行日志，包含代码和名称，提示停牌
+
+                logging.warning(f"ETF代码 {etf_data.get('SECURITY_CODE')}, 名称: {etf_data.get('SECURITY_NAME_ABBR')}: 停牌")
+                continue
+
             # 提取所需字段，并进行负值转换
             found_etfs.append({
                 'code': etf_data.get('SECURITY_CODE'),
@@ -194,11 +200,20 @@ def main():
         logging.info(f"未找到列表 {etf_codes_to_find} 中的任何ETF数据。")
         return
 
+    logging.info("\n")
+
     # 从文件中读取已持仓的ETF代码
     held_etf_codes = read_codes_from_file()
-    logging.info(f"已持仓的ETF代码: {held_etf_codes}")
+    # 打印已持仓的ETF代码和名字
+    for code in held_etf_codes:
+        etf_data = get_etf_data_by_code(all_etf_data, code)
+        if etf_data:
+            logging.info(f"已持仓的ETF代码: {code} 名称：{etf_data['name']}")
+        # else:
+        #     logging.info(f"   {code} (未找到)")
 
-    # --- 卖出提醒逻辑 ---
+
+# --- 卖出提醒逻辑 ---
     sell_etfs = []
     for etf in found_etfs:
         if etf['code'] in held_etf_codes:  # 只检查已持仓的
@@ -227,9 +242,9 @@ def main():
                 switch_etfs.append(etf)
 
     switch_etfs.sort(key=lambda x: x['premium_ratio'])
-    logging.info("******************************")
 
     if switch_etfs:
+        logging.info("******************************")
         logging.info("\n老板，建仓啦！ (溢价率小于5%, 且不在已持仓列表中):")
         message_lines = ["\n老板，建仓啦！ (溢价率小于5%, 且不在已持仓列表中):"]
 
