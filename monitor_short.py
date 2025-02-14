@@ -218,7 +218,7 @@ def main():
     sell_etfs = []
     for etf in found_etfs:
         if etf['code'] in held_etf_codes:  # 只检查已持仓的
-            if float(etf['premium_ratio']) >= 8:
+            if float(etf['premium_ratio']) >= 6:
                 sell_etfs.append(etf)
 
     if sell_etfs:
