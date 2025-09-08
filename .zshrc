@@ -184,3 +184,25 @@ source /etc/zsh_command_not_found
 
 #https://github.com/arzzen/calc.plugin.zsh/blob/master/calc.plugin.zsh
 #source ~/.oh-my-zsh/custom/plugins/calc.plugin.zsh/calc.plugin.zsh
+
+psshx() {
+    if [ "$#" -lt 2 ]; then
+        echo "Usage: psshx <hosts_file> <command> [timeout_seconds]"
+        return 1
+    fi
+
+    HOSTS_FILE="$1"
+    shift
+
+    # 默认超时时间为 60 秒，如果最后一个参数是数字则作为 timeout
+    TIMEOUT=60
+    LAST_ARG="${@: -1}"
+    if [[ "$LAST_ARG" =~ ^[0-9]+$ ]]; then
+        TIMEOUT="$LAST_ARG"
+        # 移除最后一个参数（timeout）
+        set -- "${@:1:$(($#-1))}"
+    fi
+
+    CMD="$*"
+    pssh -h "$HOSTS_FILE"  -p 256 -t "$TIMEOUT" -x "-q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" -i "$CMD"
+}
